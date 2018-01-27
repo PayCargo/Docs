@@ -1,0 +1,1163 @@
+<h1 id='introduction'>Introduction</h1>
+<p>Welcome to the International Chauffeured Service API! You can use our API to get our rates for Point to Point, Hourly and Daily car bookings. You can make a booking via ICS API.</p>
+
+<p>We have language bindings in Shell and Python. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<h1 id='get-car-prices'>Get Car Prices</h1><pre class="highlight shell tab-shell"><code>curl -X POST  <span class="s2">"https://e-zbookings.com/api/v1/carprice"</span> <span class="se">\</span>
+-H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+-d <span class="s1">'
+{
+    "type": "PP",
+    "passengers": 1,
+    "luggage": 1,
+    "time": "13:52",
+    "pickup": {
+        "isairport": "true",
+        "airportcode": "JFK",
+        "airlinecode": "DL",
+        "flightno": "234",
+        "countrycode": "US"
+    },
+    "date": "2015-06-29",
+    "dropoff": {
+        "countrycode": "US",
+        "address": "32 bedford rd",
+        "zipcode": "10514",
+        "state": "NY",
+        "isairport": "false",
+        "locality": "Chappaqua"
+    }
+}
+'</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="k">def</span> <span class="nf">get_car_prices</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+       <span class="s">"type"</span><span class="p">:</span> <span class="s">"PP"</span><span class="p">,</span>
+        <span class="s">"time"</span><span class="p">:</span> <span class="s">"13:52"</span><span class="p">,</span>
+        <span class="s">"pickup"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"airportcode"</span><span class="p">:</span> <span class="s">"EWR"</span><span class="p">,</span>
+            <span class="s">"countrycode"</span><span class="p">:</span> <span class="s">"US"</span><span class="p">,</span>
+            <span class="s">"isairport"</span><span class="p">:</span> <span class="s">"true"</span><span class="p">,</span>
+            <span class="s">"locality"</span><span class="p">:</span> <span class="s">"NYC"</span>
+        <span class="p">},</span>
+        <span class="s">"date"</span><span class="p">:</span> <span class="s">"2015-10-29"</span><span class="p">,</span>
+        <span class="s">"dropoff"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"countrycode"</span><span class="p">:</span> <span class="s">"US"</span><span class="p">,</span>
+        <span class="s">"address"</span><span class="p">:</span> <span class="s">"73 S Bedford"</span><span class="p">,</span>
+            <span class="s">"zipcode"</span><span class="p">:</span> <span class="s">"10514"</span><span class="p">,</span>
+            <span class="s">"state"</span><span class="p">:</span> <span class="s">"NY"</span><span class="p">,</span>
+            <span class="s">"isairport"</span><span class="p">:</span> <span class="s">"false"</span><span class="p">,</span>
+            <span class="s">"locality"</span><span class="p">:</span> <span class="s">"Chappaqua"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">json_data</span>               <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">post_data</span>               <span class="o">=</span> <span class="n">json_data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">headers</span>                 <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">headers</span><span class="p">[</span><span class="s">'Content-Type'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'application/json'</span>
+    <span class="n">url</span>                     <span class="o">=</span> <span class="s">'https://e-zbookings.com/api/v1/carprice'</span>
+    <span class="n">req</span>                     <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">post_data</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>  
+    <span class="n">res</span>                     <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="n">result</span>                  <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">print</span> <span class="s">'POST https://e-zbookings.com/api/v1/carprice'</span> 
+    <span class="n">pp</span>                      <span class="o">=</span> <span class="n">pprint</span><span class="o">.</span><span class="n">PrettyPrinter</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">json_object</span>             <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">json_object</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+
+    <span class="k">if</span> <span class="s">'token'</span> <span class="ow">in</span> <span class="n">json_object</span><span class="p">:</span>
+        <span class="n">result_token</span>        <span class="o">=</span> <span class="n">json_object</span> <span class="p">[</span><span class="s">'token'</span><span class="p">]</span>
+        <span class="k">global</span> <span class="n">token_id</span> 
+        <span class="n">token_id</span>            <span class="o">=</span> <span class="n">result_token</span>
+    <span class="k">else</span><span class="p">:</span>
+         <span class="k">print</span> <span class="s">'Token is null'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5v72fh56ia8epinqnmunpg53ej"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"prices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"carClassId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPT"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPRINTER VAN 14 PASSENGERS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"179.00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"final_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"243.76"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"max_pass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"max_lugg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://e-zbookings.com/includes/images/api/US_SPT_150x80.png"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"carClassId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MBUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MINIBUS 22-36 PASSENGERS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"344.00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"final_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"461.36"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"max_pass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"max_lugg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://e-zbookings.com/includes/images/api/US_MBUS_150x80.png"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"carClassId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MOTORCOACH PREVOST"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"459.00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"final_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"613.02"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"max_pass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"max_lugg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://e-zbookings.com/includes/images/api/US_BUS_150x80.png"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baggage Claim"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Meet your chauffeur by Baggage Claim even if you do not have any luggage"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Curb Side"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*Please call upon arrival 1-800-266-5254.  We monitor the flight*"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"International"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chauffeur will be waiting with the sign at the Outside Custom Area"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Baggage Claim"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Meet your chauffeur by Baggage Claim even if you do not have any luggage"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Curb Side"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*Please call upon arrival 1-800-266-5254.  We monitor the flight*"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gate"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chauffeur will be waiting with the sign at the Gate Area"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"International"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chauffeur will be waiting with the sign at the Outside Custom Area"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>POST https://e-zbookings.com/api/v1/carprice</code></p>
+
+<p>Gets prices for specified pick up and drop off location for different Car Classes and Meet and Greet Options</p>
+<h3 id='request-parameters'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>Point to Point (PP) or Hourly (HR)</td>
+</tr>
+<tr>
+<td>hours</td>
+<td>type==HR</td>
+<td>Number of hours for hourly jobs</td>
+</tr>
+<tr>
+<td>date</td>
+<td>true</td>
+<td>Date of the Pick Up</td>
+</tr>
+<tr>
+<td>time</td>
+<td>true</td>
+<td>Time of the Pick Up</td>
+</tr>
+<tr>
+<td>pickup</td>
+<td>true</td>
+<td>Pick Up Location</td>
+</tr>
+<tr>
+<td>dropoff</td>
+<td>true</td>
+<td>Drop Off Location</td>
+</tr>
+<tr>
+<td>passengers</td>
+<td>false</td>
+<td>Number of Passengers, defaults to 1 if skipped</td>
+</tr>
+<tr>
+<td>luggage</td>
+<td>false</td>
+<td>Number of Luggage itesm, defaults to 1 if skipped</td>
+</tr>
+<tr>
+<td>option</td>
+<td>false</td>
+<td>Meet and Greet Option</td>
+</tr>
+<tr>
+<td>passenger</td>
+<td>false</td>
+<td>Passenger information that includes his name and contact info (see below)</td>
+</tr>
+<tr>
+<td>addl_option</td>
+<td>false</td>
+<td>Additional options include Animal, Car Seat and Booster</td>
+</tr>
+<tr>
+<td>airlinecode</td>
+<td>false</td>
+<td>Airline code for trips from/to Airport</td>
+</tr>
+<tr>
+<td>flightno</td>
+<td>false</td>
+<td>Flight Number for trip from/to airport</td>
+</tr>
+<tr>
+<td>finalPrice</td>
+<td>false</td>
+<td>whether to give back the final_price that includes Meet &amp; Greet, Parking, Gratuity Tolls and Tax</td>
+</tr>
+<tr>
+<td>job_id</td>
+<td>false</td>
+<td>Pass it if you would like to edit reservation, then follow same steps as for reservation creation</td>
+</tr>
+</tbody></table>
+<h3 id='passenger-parameters'>Passenger Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name_last</td>
+<td>true</td>
+<td>Passenger Last Name</td>
+</tr>
+<tr>
+<td>name_first</td>
+<td>true</td>
+<td>Passenger First Name</td>
+</tr>
+<tr>
+<td>email</td>
+<td>true</td>
+<td>Passenger email address</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>true</td>
+<td>Passenger phone number</td>
+</tr>
+</tbody></table>
+<h3 id='additional-option-parameters'>Additional Option Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>animal</td>
+<td>true</td>
+<td>Transporting an Animal in the car true/false</td>
+</tr>
+<tr>
+<td>carseat</td>
+<td>true</td>
+<td>Carseat needed true/false</td>
+</tr>
+<tr>
+<td>booster</td>
+<td>true</td>
+<td>Booster seat needed true/false</td>
+</tr>
+</tbody></table>
+<h3 id='location-parameters'>Location Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>isairport</td>
+<td>true</td>
+<td>Location is an airport &quot;true&quot; or &quot;false&quot;</td>
+</tr>
+<tr>
+<td>countrycode</td>
+<td>true</td>
+<td>Country Code</td>
+</tr>
+<tr>
+<td>airportcode</td>
+<td>isairport</td>
+<td>Airport IATA code, only required when isairport=&quot;true&quot;</td>
+</tr>
+<tr>
+<td>airlinecode</td>
+<td>false</td>
+<td>Airline IATA code, please refer to <a href="http://www.iata.org/publications/Pages/code-search.aspx">IATA Airline/Airport Search</a></td>
+</tr>
+<tr>
+<td>flightno</td>
+<td>false</td>
+<td>Flight no, only required when isairport=&quot;true&quot;</td>
+</tr>
+<tr>
+<td>state</td>
+<td>only if countrycode=&quot;US&quot; and !isairport</td>
+<td>US State, required only when isairport=&quot;false&quot; and countrycode is &quot;US&quot;</td>
+</tr>
+<tr>
+<td>locality</td>
+<td>!isairport</td>
+<td>City or Locality</td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>!isairport</td>
+<td>Postal or Zip Code</td>
+</tr>
+</tbody></table>
+
+<p>Returns a Car Classes with Prices and Meet and Greet Options along with the token that serves as Booking identifier for further requests</p>
+
+<p>This endpoint provides quotes for different car classes and meet and greet options</p>
+<h1 id='authentication'>Authentication</h1>
+<p>ICS uses API keys to allow access to the API. You can get ICS API key by contacting us at http://bookalimo.com/connect-with-us</p>
+
+<p>We expect for the API credentials to be included in every request to the server in a header that looks like the following:</p>
+
+<p><code>Authorization: Basic base64encodedkeyandsecret</code></p>
+
+<p>Get Car Prices is the only request that do not require authentication header
+<aside class="notice">
+You must replace <code>base64encodedkeyandsecret</code> with your personal API credentials.
+</aside></p>
+<h1 id='preview-booking'>Preview Booking</h1>
+<p><code>POST https://e-zbookings.com/api/v1/book</code></p>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://e-zbookings.com/api/v1/book"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Basic base64encodedkeyandsecret"</span> <span class="se">\</span>
+  -d <span class="s1">'
+{
+    "token": "t122so3d90pj9hrqbb4nv7lv2f",
+    "car": "SD",
+    "option": "C",
+    "passenger":
+    {
+      "name_first":"Nick",
+      "name_last":"Jones",
+      "phone":"555-555-5555",
+      "email":"test@test.com"
+    },
+    "addl_option":
+    {
+      "animal": true,
+      "carseat": false,
+      "booster": true
+    }
+}
+'</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="k">def</span> <span class="nf">get_preview_booking</span><span class="p">():</span>
+    <span class="n">data</span>      <span class="o">=</span> <span class="n">token_id</span>
+    <span class="n">udata</span>     <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"utf-8"</span><span class="p">)</span>
+    <span class="n">asciidata</span> <span class="o">=</span> <span class="n">udata</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"ascii"</span><span class="p">,</span><span class="s">"ignore"</span><span class="p">)</span>
+    <span class="n">data</span>      <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"token"</span><span class="p">:</span> <span class="n">asciidata</span><span class="p">,</span>
+        <span class="s">"car"</span><span class="p">:</span> <span class="s">"SD"</span><span class="p">,</span>
+        <span class="s">"option"</span><span class="p">:</span> <span class="s">"B"</span><span class="p">,</span>
+        <span class="s">"passenger"</span><span class="p">:</span>
+        <span class="p">{</span>
+          <span class="s">"name_first"</span><span class="p">:</span><span class="s">"Nick"</span><span class="p">,</span>
+          <span class="s">"name_last"</span><span class="p">:</span><span class="s">"Jones"</span><span class="p">,</span>
+          <span class="s">"phone"</span><span class="p">:</span><span class="s">"555-555-5555"</span><span class="p">,</span>
+          <span class="s">"email"</span><span class="p">:</span><span class="s">"test@test.com"</span>
+        <span class="p">},</span>
+        <span class="s">"addl_option"</span><span class="p">:</span>
+        <span class="p">{</span>
+          <span class="s">"animal"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+          <span class="s">"carseat"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+          <span class="s">"booster"</span><span class="p">:</span> <span class="n">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">json_data</span>               <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">post_data</span>               <span class="o">=</span> <span class="n">json_data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">headers</span>                 <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">headers</span><span class="p">[</span><span class="s">'Content-Type'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'application/json'</span>
+    <span class="n">headers</span><span class="p">[</span><span class="s">'Authorization'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Basic base46encodedkeyandsecret'</span>
+    <span class="n">url</span>                     <span class="o">=</span> <span class="s">'https://e-zbookings.com/api/v1/book'</span>
+    <span class="n">req</span>                     <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">post_data</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>  
+    <span class="n">res</span>                     <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="n">result</span>                  <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">pprint</span><span class="o">.</span><span class="n">PrettyPrinter</span><span class="p">(</span><span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">'POST https://e-zbookings.com/api/v1/book'</span>
+    <span class="n">json_object</span>             <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">json_object</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+
+</code></pre>
+<p>Requests a final quote breakdown</p>
+<h3 id='request-parameters-2'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>true</td>
+<td>A token of the reservation provided by Get Car Prices</td>
+</tr>
+<tr>
+<td>car</td>
+<td>true</td>
+<td>Selected Car Class to be used as means of transpiration</td>
+</tr>
+<tr>
+<td>option</td>
+<td>false</td>
+<td>Selected Airport Meet &amp; Greet Option</td>
+</tr>
+<tr>
+<td>passenger</td>
+<td>false</td>
+<td>Passenger information that includes his name and contact info</td>
+</tr>
+<tr>
+<td>addl_option</td>
+<td>false</td>
+<td>Additional Options include Animal, Car Seat, Booster</td>
+</tr>
+<tr>
+<td>airlinecode</td>
+<td>false</td>
+<td>Airline code for trips from/to Airport</td>
+</tr>
+<tr>
+<td>flightno</td>
+<td>false</td>
+<td>Flight Number for trip from/to airport</td>
+</tr>
+</tbody></table>
+<h3 id='passenger-parameters-2'>Passenger Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name_last</td>
+<td>true</td>
+<td>Passenger Last Name</td>
+</tr>
+<tr>
+<td>name_first</td>
+<td>true</td>
+<td>Passenger First Name</td>
+</tr>
+<tr>
+<td>email</td>
+<td>true</td>
+<td>Passenger email address</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>true</td>
+<td>Passenger phone number</td>
+</tr>
+</tbody></table>
+<h3 id='additional-option-parameters-2'>Additional Option Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>animal</td>
+<td>true</td>
+<td>Transporting an Animal in the car true/false</td>
+</tr>
+<tr>
+<td>carseat</td>
+<td>true</td>
+<td>Carseat needed true/false</td>
+</tr>
+<tr>
+<td>booster</td>
+<td>true</td>
+<td>Booster seat needed true/false</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t122so3d90pj9hrqbb4nv7lv2f"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"amount_units"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"base_fare"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gratuity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.40"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"toll_misc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.50"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"meet_greet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stc_charge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16.03"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"wc_tax"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.45"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"misc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"182.38"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='confirm-booking'>Confirm Booking</h1><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://e-zbookings.com/api/v1/pay"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Basic base64encodedkeyandsecret"</span> <span class="se">\</span>
+  -d <span class="s1">'
+{
+    "token": "t122so3d90pj9hrqbb4nv7lv2f",
+    "payment": {
+        "type": "VI",
+        "cc": "4111111111111111",
+        "exp": "1115",
+        "zip": "10001",
+        "cvv": "123"
+    }
+}
+'</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="k">def</span> <span class="nf">get_confirm_booking</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"token"</span><span class="p">:</span> <span class="n">token_id</span><span class="p">,</span>
+            <span class="s">"payment"</span><span class="p">:</span> 
+            <span class="p">{</span>
+                <span class="s">"type"</span><span class="p">:</span> <span class="s">"VI"</span><span class="p">,</span>
+                <span class="s">"cc"</span><span class="p">:</span> <span class="s">"4111111111111111"</span><span class="p">,</span>
+                <span class="s">"exp"</span><span class="p">:</span> <span class="s">"1115"</span><span class="p">,</span>
+                <span class="s">"zip"</span><span class="p">:</span> <span class="s">"10001"</span><span class="p">,</span>
+                <span class="s">"cvv"</span><span class="p">:</span> <span class="s">"123"</span>
+           <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">json_data</span>                <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">post_data</span>                <span class="o">=</span> <span class="n">json_data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">headers</span>                  <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">headers</span><span class="p">[</span><span class="s">'Content-Type'</span><span class="p">]</span>  <span class="o">=</span> <span class="s">'application/json'</span>
+    <span class="n">headers</span><span class="p">[</span><span class="s">'Authorization'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Basic base46encodedkeyandsecret'</span>
+    <span class="n">url</span>                      <span class="o">=</span> <span class="s">'https://e-zbookings.com/api/v1/pay'</span>
+    <span class="n">req</span>                      <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">post_data</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>  
+    <span class="n">res</span>                      <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="n">result</span>                   <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pp</span>                       <span class="o">=</span> <span class="n">pprint</span><span class="o">.</span><span class="n">PrettyPrinter</span><span class="p">(</span><span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">'POST https://e-zbookings.com/api/v1/pay'</span> 
+    <span class="n">json_object</span>              <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">json_object</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>Upon Successful booking the Request above will return following JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">658068</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Where jobId is reservation confirmation number
+Upon a Credit Card Validation problem the JSON response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w">
+    </span><span class="p">[</span><span class="w"> </span><span class="s2">"Invalid Credit Card"</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>POST https://e-zbookings.com/api/v1/pay</code></p>
+
+<p>This request requires Authentication Header comprised of your API key and secret</p>
+<h3 id='request-parameters-3'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>true</td>
+<td>A token of the reservation provided by Get Car Prices Response</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>true</td>
+<td>Payment details</td>
+</tr>
+<tr>
+<td>passenger</td>
+<td>false</td>
+<td>Passenger information that includes his name and contact info</td>
+</tr>
+<tr>
+<td>addl_option</td>
+<td>false</td>
+<td>Additional Options include Animal, Car Seat and Booster</td>
+</tr>
+<tr>
+<td>airlinecode</td>
+<td>false</td>
+<td>Airline code for trips from/to Airport</td>
+</tr>
+<tr>
+<td>flightno</td>
+<td>false</td>
+<td>Flight Number for trip from/to airport</td>
+</tr>
+</tbody></table>
+<h3 id='payment-details'>Payment Details</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>true</td>
+<td>Payment type could be VI, MC, AE, JB for Credit Cards and CH for Charge accounts</td>
+</tr>
+<tr>
+<td>cc</td>
+<td>true for CC types</td>
+<td>Credit Card number</td>
+</tr>
+<tr>
+<td>exp</td>
+<td>true for CC types</td>
+<td>Expiration date in MMYY format</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>true for CC types</td>
+<td>Billing Zip Code</td>
+</tr>
+<tr>
+<td>cvv</td>
+<td>true for CC types</td>
+<td>Security code on the back of the card</td>
+</tr>
+</tbody></table>
+<h3 id='passenger-parameters-3'>Passenger Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name_last</td>
+<td>true</td>
+<td>Passenger Last Name</td>
+</tr>
+<tr>
+<td>name_first</td>
+<td>true</td>
+<td>Passenger First Name</td>
+</tr>
+<tr>
+<td>email</td>
+<td>true</td>
+<td>Passenger email address</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>true</td>
+<td>Passenger phone number</td>
+</tr>
+</tbody></table>
+<h3 id='additional-option-parameters-3'>Additional Option Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>animal</td>
+<td>true</td>
+<td>Transporting an Animal in the car true/false</td>
+</tr>
+<tr>
+<td>carseat</td>
+<td>true</td>
+<td>Carseat needed true/false</td>
+</tr>
+<tr>
+<td>booster</td>
+<td>true</td>
+<td>Booster seat needed true/false</td>
+</tr>
+</tbody></table>
+<h1 id='view-reservations'>View Reservations</h1><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://e-zbookings.com/api/v1/reslist"</span>
+-H <span class="s2">"Authorization Basic base64encodedkeyandsecret"</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="k">def</span> <span class="nf">get_reslist</span><span class="p">():</span>
+
+    <span class="n">headers</span>                  <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">headers</span><span class="p">[</span><span class="s">'Content-Type'</span><span class="p">]</span>  <span class="o">=</span> <span class="s">'application/json'</span>
+    <span class="n">headers</span><span class="p">[</span><span class="s">'Authorization'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Basic base46encodedkeyandsecret'</span>
+    <span class="n">url</span>                      <span class="o">=</span> <span class="s">'https://e-zbookings.com/api/v1/reslist'</span>
+    <span class="n">req</span>                      <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">post_data</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+    <span class="n">res</span>                      <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="n">result</span>                   <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pp</span>                       <span class="o">=</span> <span class="n">pprint</span><span class="o">.</span><span class="n">PrettyPrinter</span><span class="p">(</span><span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">'GET https://e-zbookings.com/api/v1/reslist'</span>
+    <span class="n">json_object</span>              <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">json_object</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>The request will return the following JSON</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"jobs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">762760</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/18/2015"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1:30 PM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR (C) "</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null null"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozio"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"877.666.5544"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mozio.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"option"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">762865</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/18/2015"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2:20 PM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null null"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozio"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"877.666.5544"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mozio.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"option"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">762970</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/18/2015"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2:20 PM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null null"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozio"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"877.666.5544"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mozio.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"option"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">762925</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/18/2015"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5:00 PM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR (C) "</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null null"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozio"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"877.666.5544"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mozio.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"option"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">762874</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/18/2015"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5:00 PM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR (C) "</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null null"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozio"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"877.666.5544"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mozio.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"option"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">762857</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12/18/2015"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5:00 PM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR (C) "</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null null"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozio"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"877.666.5544"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mozio.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"option"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">763030</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01/03/2016"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5:00 PM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR (C) "</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EWR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chappaqua"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null null"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozio"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"877.666.5544"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mozio.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"option"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>GET https://e-zbookings.com/api/v1/reslist</code></p>
+
+<p>Gets the list of future reservations</p>
+
+<p>This request requires Authentication Header comprised of your API key and secret</p>
+<h1 id='get-customer-information'>Get Customer Information</h1><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://e-zbookings.com/api/v1/profile"</span>
+-H <span class="s2">"Authorization Basic base64encodedcustomercredentials"</span>
+</code></pre>
+<blockquote>
+<p>Request above will return the following JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JOHN"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"212.547.8146"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JOHN.DOE@GMAIL.COM"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>GET https://e-zbookings.com/api/v1/profile</code></p>
+
+<p>Gets Customer information</p>
+
+<p>This request requires Authentication Header comprised of base64encoded customer credentials:</p>
+
+<p>Authorization Basic Base64Encode(customer_email:customer_password)</p>
+<h1 id='cancel-confirmed-booking'>Cancel Confirmed Booking</h1><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://e-zbookings.com/api/v1/cancel/[jobId]"</span>
+-H <span class="s2">"Authorization Basic base64encodedkeyandsecret"</span>
+</code></pre>
+<blockquote>
+<p>Upon successfull cancellation, the Request above will return following JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully cancelled reservation: 760855"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Upon un-successfull cancellation, the JSON will look like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RESERVATION IS NOT WITHIN CANCELLATION POLICY -- MUST CALL 1-800-266-5254"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>GET https://e-zbookings.com/api/v1/cancel/[jobId]</code></p>
+
+<p>This request requires Authentication Header comprised of your API key and secret</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>jobId</td>
+<td>true</td>
+<td>an identifier for the job to be cancelled</td>
+</tr>
+</tbody></table>
+<h1 id='driver-get-list-of-reservations'>Driver get List of Reservations</h1>
+<p><code>GET https://e-zbookings.com/api/v1/driver/reslist</code></p>
+
+<p>This request requires Authentication Header comprised of Driver API key and secret</p>
+<pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://e-zbookings.com/api/v1/driver/reslist"</span>
+-H <span class="s2">"Authorization Basic base64encodedkeyandsecret"</span>
+</code></pre>
+<blockquote>
+<p>The Request above returns following JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"jobs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">843250</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"confirmable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"04/25/2016"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6:10 AM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Rochelle NY: 94 DAVIS AVE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Rochelle NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94 DAVIS AVE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGA:DL - Delta Airlines"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airportcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LGA"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airlinecode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DL"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HUGH DOYLE SENIOR CENTER"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SD"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="mi">860777</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"confirmable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06/30/2016"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5:00 AM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pickup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Washington: White House, Pennsylvania Avenue Northwest, Washington, D.C., DC, United States: 1600 Pennsylvania Ave NW"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Washington"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1600 Pennsylvania Ave NW"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dropoff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"addressFull"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Washington DC: 1404 Highland Ave, Ashland, KY, United States: 1404 Highland Ave"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Washington DC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1404 Highland Ave"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isairport"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passenger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name_first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Katherine"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name_last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sierra"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"606.324.8398"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Katherine@bookalimo.com"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"car"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MBUS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"addl_option"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"animal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"carseat"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"booster"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='driver-confirm-reservation'>Driver Confirm Reservation</h1>
+<p><code>POST https://e-zbookings.com/api/v1/driver/confirm</code> </p>
+
+<p>This request requires Authentication Header comprised of Driver API key and secret</p>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://e-zbookings.com/api/v1/driver/reslist"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Basic base64encodedkeyandsecret"</span> <span class="se">\</span>
+  -d <span class="s1">'
+{
+    "jobId": "860777",
+    "confirmation": "c1"
+}
+'</span>
+</code></pre>
+<blockquote>
+<p>Upon Successful confirmation, the succes message is returned:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Upon un-successful confirmation, the error list is returned:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Already confirmed"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
