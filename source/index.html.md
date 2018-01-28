@@ -3,13 +3,10 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='mailto:developers@paycargo.com'>Sign Up for Developer Credentials</a>
 
 includes:
   - errors
@@ -19,221 +16,289 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Paycargo REST API! You can use our API to check status, create and void Payments.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in Shell and Javascript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+We have 2 environments:
+
+* Sandbox: https://apidev.paycargo.com
+* Production: https://api.paycargo.com
 
 # Authentication
 
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+> To authenticate and get JWT token for further requests, use following:
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl --request POST \
+  --url 'https://apidev.paycargo.com/login' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'username={{username}}&password={{password}}'
 ```
 
 ```javascript
-const kittn = require('kittn');
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/login",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "data": {
+    "username": "{{username}}",
+    "password": "{{password}}"
+  }
+}
 
-let api = kittn.authorize('meowmeowmeow');
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> The above command returns JSON with the Authentication token
+ 
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Nzc4MTQwLCJhY2NvdW50VHlwZSI6InNoaXBwZXIiLCJpYXQiOjE1MTcwOTUyODAsImV4cCI6MTUxNzcwMDA4MH0.HUeTs-Lb6AQsZjt_KEnjEljAXsXce0Y-zfQc5AI7oVc"
+}
+```
+Paycargo API expects for the JWT token retrieved from this request to be included in all subsequent requests to the server in a header that looks like the following:
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`Authorization: JWT {{token}}`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>{{token}}</code> with the token retrieved at Authentication
 </aside>
 
-# Kittens
+# Transaction
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Get Transaction Details
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl --request GET \
+  --url 'https://apidev.paycargo.com/transaction/{{transactionId}}' \
+  --header 'Authorization: JWT {{token}}'
 ```
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/transaction/478169",
+  "method": "GET",
+  "headers": {
+    "Authorization": "JWT {{token}}"
   }
-]
+}
 ```
 
-This endpoint retrieves all kittens.
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "transactionId": 478169,
+    "payerId": 281390,
+    "vendorId": 279404,
+    "status": 222455,
+    "type": 222899,
+    "number": "89080934",
+    "departureDate": null,
+    "arrivalDate": null,
+    "paymentDueDate": "2017-05-16T00:00:00.000Z",
+    "approvalDate": "2018-01-24T22:05:18.257Z",
+    "hasArrived": true,
+    "total": 4,
+    "direction": "Outbound",
+    "createdDate": "2018-01-22T11:07:24.280Z",
+    "lastModifiedDate": "2018-01-24T22:05:18.273Z",
+    "userId": 778042,
+    "modifiedByUserId": 778140,
+    "customerRefNumber": "customerrefnum",
+    "subcategory": "subcat",
+    "relatedNumber": "relatedbol"
+  },
+  "result": {
+    "code": 200,
+    "msg": "successful"
+  }
+}
+```
+
+This endpoint gives you the Details for the transaction. 
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://apidev.paycargo.com/transaction/{{transactionId}}`
 
-### Query Parameters
+### Request Parameter
 
-Parameter | Default | Description
+Parameter | Required | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+transactionId | true | It takes {{transactionId}} parameter that uniquely identifies transaction in Paycargo system.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+### Response Fields
+Response Field | Type | Description
+-------------- | ---- | -----------
+transactionId | Int | Unique transaction 
+payerId | Int | Payer identifier
+vendorId | Int | Vendor (funds reciever) identifier
+status | String | Error / Paid / Created / Disputed / Cleared / Void
+type | String | Invoice / Bill of Lading / Terminal Fee / AWB
+number | String | Transaction number, usually an AWB or BOL, accepts stars (*) at the end for duplicate payments
+departureDate | Date | Cargo departure date
+arrivalDate | Date | Cargo arrival date
+paymentDueDate | Date | The date when payment is completed (may be in the future)
+approvalDate | Date | Payment Authorization date
+total | Numeric | Total payment(s) amount
+hasArrived | Boolean | true / false
+direction | String | "Inbound" / "Outbound"
+createdDate | Date | Date transaction was created
+lastModifiedDate | Date | Date transaction was last modified
+userId | Int | Unique identfier of the user in Paycargo system who created the transaction
+modifiedByUserId | Int | Unique identifier of the user in Paycargo system who last modified the transaction
+shipperRefNumber | String | Optional reference number used by Payers / Vendors
+customerRefNumber | String | Optional reference number used by Payers / Vendors
+subcategory | String | Optional reference nuber used by Payers / Vendors
+relatedNumber | String | Optional reference number used by Payers / Vendors
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Create a Transaction
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl --request POST \
+  --url 'http://{{url}}/transaction' \
+  --header 'Authorization: JWT {{token}}' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'payerId=281390&vendorId=279404&type=Invoice&number=8908aaaaaa&total=4&userId=778042&direction=Outbound&paymentDueDate=2018-05-16&hasArrived=Y'
 ```
 
 ```javascript
-const kittn = require('kittn');
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/transaction",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Authorization": "JWT {{token}}"
+  },
+  "data": {
+    "payerId": "281390",
+    "vendorId": "279404",
+    "type": "Invoice",
+    "number": "8908aaaaaa",
+    "total": "4",
+    "userId": "778042",
+    "direction": "Outbound",
+    "paymentDueDate": "2018-05-16",
+    "hasArrived": "Y"
+  }
+}
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "data": {
+    "transactionId": 478565
+  },
+  "result": {
+    "msg": "Transaction created",
+    "code": 200
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> On failure the above command returns JSON like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "msg": "Transaction Number already exists. If you need to make additional payments to the same number, please add an asterisk (* up to 5) at the end for each additional payment.",
+  "code": 400
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint creates a transaction, and optionally makes a payment (if payNow: true)
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`POST https://apidev.paycargo.com/transaction`
+
+### Form Parameters
+
+Parameter | Required | Type | Description
+--------- | -------- | ---- | -----------
+payerId | Yes | Int | Unique identifier of the Payer in Paycargo system
+vendorId | Yes | Int | Unique identifier of the Vendor in Paycargo system
+type | Yes | String | Invoice / Bill of Lading / Terminal Fee / AWB
+number | Yes | String | Transaction number, usually an AWB or BOL, accepts stars (*) at the end for duplicate payments
+paymentDueDate | Yes | Date | The date when payment is completed (can be in the future)
+departureDate | Date | Cargo departure date
+arrivalDate | Date | Cargo arrival date
+approvalDate | Date | Payment Authorization date
+total | Yes | Numeric | Total payment(s) amount
+hasArrived | Yes | Boolean | 'Y' / 'N'
+direction | Yes | String | "Inbound" / "Outbound"
+userId | Yes | Int | Unique identfier of the user in Paycargo system who created the transaction
+shipperRefNumber | No | String | Optional reference number used by Payers / Vendors
+customerRefNumber | No | String | Optional reference number used by Payers / Vendors
+subcategory | No | String | Optional reference nuber used by Payers / Vendors
+relatedNumber | No | String | Optional reference number used by Payers / Vendors
+payNow | No | Boolean | true / false, If specified authrizes payment on this transaction
+
+## Void Transaction
+
+```shell
+curl --request PUT \
+  --url 'https://apidev.paycargo.com/transaction/void/478553' \
+  --header 'Authorization: JWT {{token}}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/transaction/void/478553",
+  "method": "PUT",
+  "headers": {
+    "Authorization": "JWT {{token}}"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON like this upon success:
+
+```json
+{
+  "data": {
+    "transactionId": "478569"
+  },
+  "result": {
+    "code": 200,
+    "msg": "Transaction Voided"
+  }
+}
+```
+
+This endpoint voids a transaction.
+
+### HTTP Request
+
+`PUT https://apidev.paycargo.com/transaction/void/{{transactionId}}`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
+transactionId | Unique Transaction Identifier in paycargo system
 
