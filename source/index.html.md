@@ -393,6 +393,7 @@ $.ajax(settings).done(function (response) {
       "name": "CSAV-USA"
     }
 ]
+}
 ```
 
 This endpoint retrieves all vendors in Paycargo system and their corresponding IDs
