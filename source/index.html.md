@@ -163,7 +163,7 @@ relatedNumber | String | Optional reference number used by Payers / Vendors
 
 ```shell
 curl --request POST \
-  --url 'http://{{url}}/transaction' \
+  --url 'https://apidev.paycargo.com/transaction' \
   --header 'Authorization: JWT {{token}}' \
   --header 'Content-Type: application/x-www-form-urlencoded' \
   --data 'payerId=281390&vendorId=279404&type=Invoice&number=8908aaaaaa&total=4&userId=778042&direction=Outbound&paymentDueDate=2018-05-16&hasArrived=Y'
@@ -365,6 +365,7 @@ curl --request GET \
   --url 'https://apidev.paycargo.com/vendors' \
   --header 'Authorization: JWT {{token}}'
 ```
+
 ```javascript
 var settings = {
   "async": true,
@@ -380,7 +381,9 @@ $.ajax(settings).done(function (response) {
   console.log(response);
 });
 ```
+
 > The above command returns JSON like this upon success:
+
 ```json
 {
   "data": [
@@ -392,7 +395,7 @@ $.ajax(settings).done(function (response) {
       "vendorId": 278545,
       "name": "CSAV-USA"
     }
-]
+  ]
 }
 ```
 
