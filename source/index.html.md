@@ -16,9 +16,9 @@ search: true
 
 # Introduction
 
-Welcome to the Paycargo REST API! You can use our API to check status, create and void Payments.
+Welcome to the Paycargo REST API! You can use our API to create and void transactions, submit payments and get transaction details.
 
-We have language bindings in Shell and Javascript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 We have 2 environments:
 
@@ -66,10 +66,6 @@ $.ajax(settings).done(function (response) {
 Paycargo API expects for the JWT token retrieved from this request to be included in all subsequent requests to the server in a header that looks like the following:
 
 `Authorization: JWT {{token}}`
-
-<aside class="notice">
-You must replace <code>{{token}}</code> with the token retrieved at Authentication
-</aside>
 
 # Transaction
 
@@ -136,7 +132,7 @@ This endpoint gives you the Details for the transaction.
 
 Parameter | Required | Description
 --------- | ------- | -----------
-transactionId | true | It takes {{transactionId}} parameter that uniquely identifies transaction in Paycargo system.
+transactionId | true | Unique identifier of the transaction in Paycargo system.
 
 ### Response Fields
 Response Field | Type | Description
@@ -239,9 +235,9 @@ vendorId | Yes | Int | Unique identifier of the Vendor in Paycargo system
 type | Yes | String | Invoice / Bill of Lading / Terminal Fee / AWB
 number | Yes | String | Transaction number, usually an AWB or BOL, accepts stars (*) at the end for duplicate payments
 paymentDueDate | Yes | Date | The date when payment is completed (can be in the future)
-departureDate | Date | Cargo departure date
-arrivalDate | Date | Cargo arrival date
-approvalDate | Date | Payment Authorization date
+departureDate | No | Date | Cargo departure date
+arrivalDate | No | Date | Cargo arrival date
+approvalDate | No |Date | Payment Authorization date
 total | Yes | Numeric | Total payment(s) amount
 hasArrived | Yes | Boolean | 'Y' / 'N'
 direction | Yes | String | "Inbound" / "Outbound"
@@ -300,5 +296,67 @@ This endpoint voids a transaction.
 
 Parameter | Description
 --------- | -----------
-transactionId | Unique Transaction Identifier in paycargo system
+transactionId | transactionId of previously created transaction
+
+
+
+
+## Make Payment
+
+```shell
+curl --request PUT \
+  --url 'https://apidev.paycargo.com/transaction/pay/478562' \
+  --header 'Authorization: JWT {{token}}' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data paymentType=OVERNIGHT
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/transaction/pay/478562",
+  "method": "PUT",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Authorization": "JWT {{token}}"
+  },
+  "data": {
+    "paymentType": "OVERNIGHT"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON like this upon success:
+
+```json
+{
+  "result": {
+    "msg": "Transaction paid",
+    "code": 200
+  }
+}
+```
+
+You can make a payment on a transaction in status "Created". Making a payment will make transaction "Approved" status
+
+### HTTP Request
+
+`PUT https://apidev.paycargo.com/transaction/pay/{{transactionId}}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+transactionId | transactionId of previously created transaction
+
+### Form Parameters
+Parameter | Description
+--------- | -----------
+paymentType | OVERNIGHT - we currently only support payments with ACH bank account
+
 
