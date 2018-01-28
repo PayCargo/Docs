@@ -237,7 +237,6 @@ number | Yes | String | Transaction number, usually an AWB or BOL, accepts stars
 paymentDueDate | Yes | Date | The date when payment is completed (can be in the future)
 departureDate | No | Date | Cargo departure date
 arrivalDate | No | Date | Cargo arrival date
-approvalDate | No |Date | Payment Authorization date
 total | Yes | Numeric | Total payment(s) amount
 hasArrived | Yes | Boolean | 'Y' / 'N'
 direction | Yes | String | "Inbound" / "Outbound"
@@ -359,4 +358,42 @@ Parameter | Description
 --------- | -----------
 paymentType | OVERNIGHT - we currently only support payments with ACH bank account
 
+# Vendors
+
+```shell
+curl --request GET \
+  --url 'https://apidev.paycargo.com/vendors' \
+  --header 'Authorization: JWT {{token}}'
+```
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/vendors",
+  "method": "GET",
+  "headers": {
+    "Authorization": "JWT {{token}}"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+> The above command returns JSON like this upon success:
+```json
+{
+  "data": [
+    {
+      "vendorId": 278529,
+      "name": "Air General - Ocean - DFW"
+    },
+    {
+      "vendorId": 278545,
+      "name": "CSAV-USA"
+    }
+]
+```
+
+This endpoint retrieves all vendors in Paycargo system and their corresponding IDs
 
