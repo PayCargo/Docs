@@ -220,7 +220,7 @@ $.ajax(settings).done(function (response) {
 }
 ```
 
-This endpoint creates a transaction, and optionally makes a payment (if payNow: true)
+This endpoint creates a transaction, and optionally makes a payment (if makePayment: true)
 
 ### HTTP Request
 
@@ -245,7 +245,7 @@ shipperRefNumber | No | String | Optional reference number used by Payers / Vend
 customerRefNumber | No | String | Optional reference number used by Payers / Vendors
 subcategory | No | String | Optional reference nuber used by Payers / Vendors
 relatedNumber | No | String | Optional reference number used by Payers / Vendors
-payNow | No | Boolean | true / false, If specified authrizes payment on this transaction
+makePayment | No | Boolean | true / false, If specified authrizes payment on this transaction
 
 ## Void Transaction
 
