@@ -206,7 +206,7 @@ $.ajax(settings).done(function (response) {
   },
   "result": {
     "msg": "Transaction created",
-    "code": 200
+    "code": 201
   }
 }
 ```
@@ -220,7 +220,21 @@ $.ajax(settings).done(function (response) {
 }
 ```
 
-This endpoint creates a transaction, and optionally makes a payment (if payNow: true)
+> if makePayment is specified and set as 'true', but for some reason payment fails while transaction is still created, following result will be returned with code 201:
+
+```json
+{
+  "data": {
+    "transactionId": 478565
+  },
+  "result": {
+    "code": 201,
+    "msg": "Overnight availability reached, insufficient funds, cannot be approved"
+  }
+}
+```
+
+This endpoint creates a transaction, and optionally makes a payment (if makePayment: true)
 
 ### HTTP Request
 
@@ -245,7 +259,7 @@ shipperRefNumber | No | String | Optional reference number used by Payers / Vend
 customerRefNumber | No | String | Optional reference number used by Payers / Vendors
 subcategory | No | String | Optional reference nuber used by Payers / Vendors
 relatedNumber | No | String | Optional reference number used by Payers / Vendors
-payNow | No | Boolean | true / false, If specified authrizes payment on this transaction
+makePayment | No | Boolean | true / false, If specified authrizes payment on this transaction
 
 ## Void Transaction
 
