@@ -12,3 +12,18 @@ Error Code | Meaning
 422 | Unprocessable Entry -- Please change your request parameters
 500 | Internal Server Error -- We had a problem with our server. Try again later.
 503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
+
+
+Transaction Creation & Approval Response codes:
+
+Error Code | Meaning
+---------- | -------
+411 | Transaction is not status created or proofed, cannot be approved
+412 | Overnight availability reached, insufficient funds, cannot be approved
+414 | Transaction does not exist, cannot be approved
+431 | Vendor is not active, cannot be approved
+432 | Payer is not client registered, cannot be approved
+433 | Vendor is not client registered, cannot be approved
+441 | Missing Vendor Credit Account, cannot be approved
+442 | Missing Payer Debit Account, cannot be approve
+200 | Transaction approved
