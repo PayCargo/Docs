@@ -25,7 +25,14 @@ We have 2 environments:
 * Sandbox: https://apidev.paycargo.com
 * Production: https://api.paycargo.com
 
-# Authentication
+This API supports 2 authentication types both using JWT token:
+
+* User Authentication - perform actions on behalf of single user
+* Developer Authentication - perform actions on behalf of multiple payer / vendor accounts
+
+Most of the endpoints described below are accessible to both User and Developer (exceptions are marked)
+
+# User Authentication
 
 > To authenticate and get JWT token for further requests, use following:
 
@@ -66,6 +73,53 @@ $.ajax(settings).done(function (response) {
 Paycargo API expects for the JWT token retrieved from this request to be included in all subsequent requests to the server in a header that looks like the following:
 
 `Authorization: JWT {{token}}`
+
+The token is longer than 256 charachters as it contains information about user account.
+
+# Developer Authentication
+
+> To authenticate as a developer you will need an API Key and Secret. You can get them by emailing developers@paycargo.com.
+Once you have the Key and Secrent you can get JWT token for further requests, use following:
+
+```shell
+curl --request POST \
+  --url 'https://apidev.paycargo.com/login/developer' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'apiKey={{apiKey}}&apiSecret={{apiSecret}}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/login/developer",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "data": {
+    "apiKey": "{{apiKey}}",
+    "apiSecret": "{{apiSecret}}"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON with the Authentication token
+ 
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Nzc4MTQwLCJhY2NvdW50VHlwZSI6InNoaXBwZXIiLCJpYXQiOjE1MTcwOTUyODAsImV4cCI6MTUxNzcwMDA4MH0.HUeTs-Lb6AQsZjt_KEnjEljAXsXce0Y-zfQc5AI7oVc"
+}
+```
+Paycargo API expects for the JWT token retrieved from this request to be included in all subsequent requests to the server in a header that looks like the following:
+
+`Authorization: JWT {{token}}`
+
+The token can be longer than 256 charachters as it contains information about developer account.
 
 # Transaction
 
