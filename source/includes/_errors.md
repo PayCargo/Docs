@@ -14,7 +14,7 @@ Error Code | Meaning
 503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
 
 
-Transaction Creation & Approval Response codes:
+Transaction Make Payment Response codes:
 
 Error Code | Meaning
 ---------- | -------
@@ -26,4 +26,4 @@ Error Code | Meaning
 433 | Vendor is not client registered, cannot be approved
 441 | Missing Vendor Credit Account, cannot be approved
 442 | Missing Payer Debit Account, cannot be approve
-200 | Transaction approved
+200 | Transaction paid

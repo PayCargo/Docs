@@ -70,6 +70,7 @@ $.ajax(settings).done(function (response) {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Nzc4MTQwLCJhY2NvdW50VHlwZSI6InNoaXBwZXIiLCJpYXQiOjE1MTcwOTUyODAsImV4cCI6MTUxNzcwMDA4MH0.HUeTs-Lb6AQsZjt_KEnjEljAXsXce0Y-zfQc5AI7oVc"
 }
 ```
+To authenticate as a user, you will need active and registered Paycargo username and password.
 Paycargo API expects for the JWT token retrieved from this request to be included in all subsequent requests to the server in a header that looks like the following:
 
 `Authorization: JWT {{token}}`
@@ -78,8 +79,7 @@ The token is longer than 256 charachters as it contains information about user a
 
 # Developer Authentication
 
-> To authenticate as a developer you will need an API Key and Secret. You can get them by emailing developers@paycargo.com.
-Once you have the Key and Secrent you can get JWT token for further requests, use following:
+> Once you have the Key and Secrent you can get JWT token for further requests, use following:
 
 ```shell
 curl --request POST \
@@ -115,6 +115,7 @@ $.ajax(settings).done(function (response) {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Nzc4MTQwLCJhY2NvdW50VHlwZSI6InNoaXBwZXIiLCJpYXQiOjE1MTcwOTUyODAsImV4cCI6MTUxNzcwMDA4MH0.HUeTs-Lb6AQsZjt_KEnjEljAXsXce0Y-zfQc5AI7oVc"
 }
 ```
+To authenticate as a developer you will need an API Key and Secret. You can get them by emailing developers@paycargo.com.
 Paycargo API expects for the JWT token retrieved from this request to be included in all subsequent requests to the server in a header that looks like the following:
 
 `Authorization: JWT {{token}}`
