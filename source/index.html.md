@@ -64,7 +64,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 > The above command returns JSON with the Authentication token
- 
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Nzc4MTQwLCJhY2NvdW50VHlwZSI6InNoaXBwZXIiLCJpYXQiOjE1MTcwOTUyODAsImV4cCI6MTUxNzcwMDA4MH0.HUeTs-Lb6AQsZjt_KEnjEljAXsXce0Y-zfQc5AI7oVc"
@@ -110,7 +110,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 > The above command returns JSON with the Authentication token
- 
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Nzc4MTQwLCJhY2NvdW50VHlwZSI6InNoaXBwZXIiLCJpYXQiOjE1MTcwOTUyODAsImV4cCI6MTUxNzcwMDA4MH0.HUeTs-Lb6AQsZjt_KEnjEljAXsXce0Y-zfQc5AI7oVc"
@@ -179,7 +179,7 @@ var settings = {
 }
 ```
 
-This endpoint gives you the Details for the transaction. 
+This endpoint gives you the Details for the transaction.
 
 ### HTTP Request
 
@@ -194,7 +194,7 @@ transactionId | true | Unique identifier of the transaction in Paycargo system.
 ### Response Fields
 Response Field | Type | Description
 -------------- | ---- | -----------
-transactionId | Int | Unique transaction 
+transactionId | Int | Unique transaction
 payerId | Int | Payer identifier
 vendorId | Int | Vendor (funds reciever) identifier
 status | String | Error / Paid / Created / Disputed / Cleared / Void
@@ -428,6 +428,75 @@ transactionId | transactionId of previously created transaction
 Parameter | Description
 --------- | -----------
 paymentType | OVERNIGHT - we currently only support payments with ACH bank account
+
+
+## Freight Correction
+
+```shell
+curl --request PUT \
+  --url 'http://apidev.paycargo.com/transaction/487727' \
+  --header 'Authorization: JWT {{token}}' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'total=20&paymentDueDate=2018-04-21'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://apidev.paycargo.com/transaction/487727",
+  "method": "PUT",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Authorization": "JWT {{token}}"
+  },
+  "data": {
+    "total": "20",
+    "paymentDueDate": "2018-04-21"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON like this upon success:
+
+```json
+{
+    "result": {
+        "msg": "Transaction freight corrected.",
+        "code": 200
+    },
+    "data": {
+        "transactionId": "487727",
+        "total": "20",
+        "paymentDueDate": "2018-04-21"
+    }
+}
+```
+
+This endpoint updates the total and payment due date for the transaction.
+
+### HTTP Request
+
+`PUT https://apidev.paycargo.com/transaction/{{transactionId}}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+transactionId | transactionId of previously created transaction
+
+### Form Parameters
+
+Parameter | Required | Type | Description
+--------- | -------- | ---- | -----------
+paymentDueDate | Yes | Date | The date when payment is completed (can only be before the current paymentDueDate)
+total | Yes | Numeric | Total payment(s) amount (can only be less than the current total)
+
+
 
 # Vendors
 
