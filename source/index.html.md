@@ -477,7 +477,7 @@ $.ajax(settings).done(function (response) {
 }
 ```
 
-This endpoint updates the total and payment due date for the transaction.
+This endpoint updates the total and payment due date for the paid transaction.
 
 ### HTTP Request
 
