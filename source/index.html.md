@@ -541,3 +541,62 @@ $.ajax(settings).done(function (response) {
 
 This endpoint retrieves all vendors in Paycargo system and their corresponding IDs
 
+### HTTP Request
+
+`GET https://apidev.paycargo.com/vendors`
+
+
+# Payers
+
+```shell
+curl --request GET \
+  --url 'https://apidev.paycargo.com/payers' \
+  --header 'Authorization: JWT {{token}}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/payers",
+  "method": "GET",
+  "headers": {
+    "Authorization": "JWT {{token}}"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON like this upon success:
+
+```json
+{
+    "result": {
+        "msg": "succesful",
+        "code": 200
+    },
+    "data": [
+        {
+            "payerId": 279986,
+            "payerName": "Essex Mfg Inc./Baum Bros"
+        },
+        {
+            "payerId": 280289,
+            "payerName": "Applause Source LLC"
+        },
+        {
+            "payerId": 281919,
+            "payerName": "Pasha Gemini Payer"
+        }
+    ]
+}
+```
+
+This endpoint only works when logged in as a Developer and retrieves the payers associated with that developer account
+
+### HTTP Request
+
+`GET https://apidev.paycargo.com/payers` (developer auth only)
