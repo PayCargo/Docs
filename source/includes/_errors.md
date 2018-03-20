@@ -31,6 +31,7 @@ Error Code | Meaning
 Freight Correction Response codes:
 
 Error Code | Meaning
+---------- | --------
 411 | Transaction not in a Created, Proofed or Approved status can''t be corrected
 413 | Total amount cannot be greater than original amount
 414 | Transaction does not exist
