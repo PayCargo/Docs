@@ -26,6 +26,10 @@ Error Code | Meaning
 433 | Vendor is not client registered, cannot be approved
 441 | Missing Vendor Credit Account, cannot be approved
 442 | Missing Payer Debit Account, cannot be approve
+451 | Please check credit missing parameters, cannot be approved
+452 | Missing Payer Finance Account, cannot be approved
+453 | Credit availability reached, insufficient funds, cannot be approved
+
 200 | Transaction paid
 
 Freight Correction Response codes:
