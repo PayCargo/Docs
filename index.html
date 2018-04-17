@@ -453,12 +453,12 @@
 <tr>
 <td>payerId</td>
 <td>Int</td>
-<td>Optional (for user authenticated payers) Payer identifier</td>
+<td>Required (Optional for user authenticated payers) Payer identifier</td>
 </tr>
 <tr>
 <td>vendorId</td>
 <td>Int</td>
-<td>Optional (for user authenticated vendors) Vendor (funds reciever) identifier</td>
+<td>Required (Optional for user authenticated vendors) Vendor (funds reciever) identifier</td>
 </tr>
 <tr>
 <td>status</td>
@@ -523,7 +523,7 @@
 <tr>
 <td>userId</td>
 <td>Int</td>
-<td>Optional (for user authenticated accounts) Unique identfier of the user in Paycargo system who created the transaction</td>
+<td>Required (Optional for user authenticated accounts) Unique identfier of the user in Paycargo system who created the transaction</td>
 </tr>
 <tr>
 <td>modifiedByUserId</td>
@@ -833,7 +833,7 @@
 </thead><tbody>
 <tr>
 <td>paymentType</td>
-<td>OVERNIGHT / PAYCARGO_CREDIT - we currently only support payments with ACH bank account</td>
+<td>OVERNIGHT / PAYCARGO_CREDIT - Pay by Overnight or Paycargo Credit</td>
 </tr>
 </tbody></table>
 <h2 id='freight-correction'>Freight Correction</h2><pre class="highlight shell tab-shell"><code>curl --request PUT <span class="se">\</span>
