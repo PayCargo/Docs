@@ -2,7 +2,6 @@
 
 The Paycargo API uses the following error codes:
 
-
 Error Code | Meaning
 ---------- | -------
 400 | Bad Request -- Your request is invalid.
@@ -29,8 +28,8 @@ Error Code | Meaning
 451 | Please check credit missing parameters, cannot be approved
 452 | Missing Payer Finance Account, cannot be approved
 453 | Credit availability reached, insufficient funds, cannot be approved
-
 200 | Transaction paid
+
 
 Freight Correction Response codes:
 
@@ -43,4 +42,3 @@ Error Code | Meaning
 423 | Some payments have different status than pending
 424 | Payments for this approved transaction don't exist
 200 | Transaction freight corrected
-
