@@ -195,8 +195,8 @@ transactionId | true | Unique identifier of the transaction in Paycargo system.
 Response Field | Type | Description
 -------------- | ---- | -----------
 transactionId | Int | Unique transaction
-payerId | Int | Optional (for user authenticated payers) Payer identifier
-vendorId | Int | Optional (for user authenticated vendors) Vendor (funds reciever) identifier
+payerId | Int | Required (Optional for user authenticated payers) Payer identifier
+vendorId | Int | Required (Optional for user authenticated vendors) Vendor (funds reciever) identifier
 status | String | Error / Paid / Created / Disputed / Cleared / Void
 type | String | Invoice / Bill of Lading / Terminal Fee / AWB
 number | String | Transaction number, usually an AWB or BOL, accepts stars (*) at the end for duplicate payments
@@ -209,7 +209,7 @@ hasArrived | Boolean | true / false
 direction | String | "Inbound" / "Outbound"
 createdDate | Date | Date transaction was created
 lastModifiedDate | Date | Date transaction was last modified
-userId | Int | Optional (for user authenticated accounts) Unique identfier of the user in Paycargo system who created the transaction
+userId | Int | Required (Optional for user authenticated accounts) Unique identfier of the user in Paycargo system who created the transaction
 modifiedByUserId | Int | Unique identifier of the user in Paycargo system who last modified the transaction
 shipperRefNumber | String | Optional reference number used by Payers / Vendors
 customerRefNumber | String | Optional reference number used by Payers / Vendors
@@ -428,7 +428,7 @@ transactionId | transactionId of previously created transaction
 ### Form Parameters
 Parameter | Description
 --------- | -----------
-paymentType | OVERNIGHT / PAYCARGO_CREDIT - we currently only support payments with ACH bank account
+paymentType | OVERNIGHT / PAYCARGO_CREDIT - Pay by Overnight or Paycargo Credit
 
 
 ## Freight Correction
