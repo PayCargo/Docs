@@ -26,4 +26,21 @@ Error Code | Meaning
 433 | Vendor is not client registered, cannot be approved
 441 | Missing Vendor Credit Account, cannot be approved
 442 | Missing Payer Debit Account, cannot be approve
+451 | Please check credit missing parameters, cannot be approved
+452 | Missing Payer Finance Account, cannot be approved
+453 | Credit availability reached, insufficient funds, cannot be approved
+
 200 | Transaction paid
+
+Freight Correction Response codes:
+
+Error Code | Meaning
+---------- | --------
+411 | Transaction not in a Created, Proofed or Approved status can''t be corrected
+413 | Total amount cannot be greater than original amount
+414 | Transaction does not exist
+415 | Payment date cannot be superior to original payment date
+423 | Some payments have different status than pending
+424 | Payments for this approved transaction don't exist
+200 | Transaction freight corrected
+
