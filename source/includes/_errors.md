@@ -13,6 +13,20 @@ Error Code | Meaning
 503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
 
 
+Transaction Creation Response codes:
+
+Error Code | Meaning
+---------- | -------
+411 | Transaction type does not exist: transaction cannot be created
+414 | Payer/Vendor/User does not exist: transaction cannot be created
+415 | Transaction number already exists: transaction cannot be created
+416 | Has arrived field invalid: transaction cannot be created
+430 | Payer is not active: transaction cannot be created
+431 | Vendor is not active: transaction cannot be created
+441 | Missing Vendor Credit Account: transaction cannot be created
+201 | Transaction Created
+200 | Transaction Created and Paid (when makePayment: true)
+
 Transaction Make Payment Response codes:
 
 Error Code | Meaning
