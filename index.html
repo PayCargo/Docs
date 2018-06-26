@@ -229,6 +229,20 @@
             <a href="#developer-authentication" class="toc-h1 toc-link" data-title="developer-authentication">Developer Authentication</a>
           </li>
           <li>
+            <a href="#register" class="toc-h1 toc-link" data-title="register">Register</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#us-registration" class="toc-h2 toc-link" data-title="us-registration">US Registration</a>
+                  </li>
+                  <li>
+                    <a href="#canada-registration" class="toc-h2 toc-link" data-title="canada-registration">Canada Registration</a>
+                  </li>
+                  <li>
+                    <a href="#european-registration" class="toc-h2 toc-link" data-title="european-registration">European Registration</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#transaction" class="toc-h1 toc-link" data-title="transaction">Transaction</a>
               <ul class="toc-list-h2">
                   <li>
@@ -252,7 +266,7 @@
             <a href="#vendors" class="toc-h1 toc-link" data-title="vendors">Vendors</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#http-request-6" class="toc-h2 toc-link" data-title="http-request">HTTP Request</a>
+                    <a href="#http-request-9" class="toc-h2 toc-link" data-title="http-request">HTTP Request</a>
                   </li>
               </ul>
           </li>
@@ -260,7 +274,7 @@
             <a href="#payers" class="toc-h1 toc-link" data-title="payers">Payers</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#http-request-7" class="toc-h2 toc-link" data-title="http-request">HTTP Request</a>
+                    <a href="#http-request-10" class="toc-h2 toc-link" data-title="http-request">HTTP Request</a>
                   </li>
               </ul>
           </li>
@@ -375,6 +389,615 @@
 <p><code>Authorization: JWT {{token}}</code></p>
 
 <p>The token can be longer than 256 charachters as it contains information about developer account.</p>
+<h1 id='register'>Register</h1><h2 id='us-registration'>US Registration</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
+  --url <span class="s1">'https://apidev.paycargo.com/signup'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/x-www-form-urlencoded'</span> <span class="se">\</span>
+  --data <span class="s1">'registerAs=Shipper&amp;first_name=John&amp;last_name=Doe&amp;login=johndoe71&amp;user_email=jdoe@doeinc.com&amp;country=US&amp;name=Doe Inc.&amp;ein=123123123&amp;address=123 Main St&amp;city=Miami&amp;state=FL&amp;zip=33333&amp;time_zone=EST&amp;phone=3051234567&amp;region=US&amp;currency=USD&amp;d_account_number=0000000016&amp;d_routing_number=122105278'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">settings</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"async"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"crossDomain"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://apidev.paycargo.com/signup"</span><span class="p">,</span>
+  <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"headers"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/x-www-form-urlencoded"</span>
+  <span class="p">},</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"registerAs"</span><span class="p">:</span> <span class="s2">"Shipper"</span><span class="p">,</span>
+    <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
+    <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+    <span class="s2">"login"</span><span class="p">:</span> <span class="s2">"johndoe71"</span><span class="p">,</span>
+    <span class="s2">"user_email"</span><span class="p">:</span> <span class="s2">"jdoe@doeinc.com"</span><span class="p">,</span>
+    <span class="s2">"country"</span><span class="p">:</span> <span class="s2">"US"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Doe Inc."</span><span class="p">,</span>
+    <span class="s2">"ein"</span><span class="p">:</span> <span class="s2">"123123123"</span><span class="p">,</span>
+    <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"123 Main St"</span><span class="p">,</span>
+    <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Miami"</span><span class="p">,</span>
+    <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"FL"</span><span class="p">,</span>
+    <span class="s2">"zip"</span><span class="p">:</span> <span class="s2">"33333"</span><span class="p">,</span>
+    <span class="s2">"time_zone"</span><span class="p">:</span> <span class="s2">"EST"</span><span class="p">,</span>
+    <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"3051234567"</span><span class="p">,</span>
+    <span class="s2">"region"</span><span class="p">:</span> <span class="s2">"US"</span><span class="p">,</span>
+    <span class="s2">"currency"</span><span class="p">:</span> <span class="s2">"USD"</span><span class="p">,</span>
+    <span class="s2">"d_account_number"</span><span class="p">:</span> <span class="s2">"0000000016"</span><span class="p">,</span>
+    <span class="s2">"d_routing_number"</span><span class="p">:</span> <span class="s2">"122105278"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="nx">settings</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account created"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">779413</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payerId"</span><span class="p">:</span><span class="w"> </span><span class="mi">282404</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>On failure the above command returns JSON like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User cannot be created, username already exists."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">410</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a new Shipper or Carrier and a new user</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://apidev.paycargo.com/signup</code></p>
+<h3 id='form-parameters'>Form Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>registerAs</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Shipper&quot; / &quot;Carrier&quot;</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your legal first name</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your legal last name</td>
+</tr>
+<tr>
+<td>login</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your username</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your email</td>
+</tr>
+<tr>
+<td>country</td>
+<td>Yes</td>
+<td>String</td>
+<td>Country code (&quot;US&quot;)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Legal company name</td>
+</tr>
+<tr>
+<td>ein</td>
+<td>Yes</td>
+<td>String</td>
+<td>Federal Tax ID Number</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s address</td>
+</tr>
+<tr>
+<td>city</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s city</td>
+</tr>
+<tr>
+<td>state</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s state</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s 5 digit zip code</td>
+</tr>
+<tr>
+<td>time_zone</td>
+<td>No</td>
+<td>String</td>
+<td>Time zone (&quot;EST&quot;, &quot;CST&quot;, &quot;MST&quot;, &quot;PST&quot;)</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>Yes</td>
+<td>String</td>
+<td>10 digit phone number</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Yes</td>
+<td>String</td>
+<td>Region code (&quot;US&quot;)</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Yes</td>
+<td>String</td>
+<td>Currency (&quot;USD&quot;)</td>
+</tr>
+<tr>
+<td>d_account_number</td>
+<td>Yes</td>
+<td>String</td>
+<td>Bank account number</td>
+</tr>
+<tr>
+<td>d_routing_number</td>
+<td>Yes</td>
+<td>String</td>
+<td>Bank routing number (ABA)</td>
+</tr>
+<tr>
+<td>Account</td>
+<td>No</td>
+<td>String</td>
+<td>Billing Type (&quot;Prepaid&quot;)</td>
+</tr>
+</tbody></table>
+<h2 id='canada-registration'>Canada Registration</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
+  --url <span class="s1">'https://apidev.paycargo.com/signup'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/x-www-form-urlencoded'</span> <span class="se">\</span>
+  --data <span class="s1">'registerAs=Shipper&amp;first_name=Jane&amp;last_name=Doe&amp;login=janedoe75&amp;user_email=janedoe@janecargo.com&amp;country=CA&amp;name=Jane Cargo&amp;ein=123123123&amp;address=123 Main St&amp;city=Toronto&amp;state=ON&amp;zip=33333&amp;time_zone=EST&amp;phone=4161234567&amp;d_account_number=0000000016&amp;d_routing_number=122105278&amp;region=CA&amp;currency=USD'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">settings</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"async"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"crossDomain"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://localhost:8080/signup"</span><span class="p">,</span>
+  <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"headers"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"content-type"</span><span class="p">:</span> <span class="s2">"application/x-www-form-urlencoded"</span><span class="p">,</span>
+    <span class="s2">"cache-control"</span><span class="p">:</span> <span class="s2">"no-cache"</span><span class="p">,</span>
+    <span class="s2">"postman-token"</span><span class="p">:</span> <span class="s2">"22c36484-7586-ca7c-9051-856433bac677"</span>
+  <span class="p">},</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"registerAs"</span><span class="p">:</span> <span class="s2">"Shipper"</span><span class="p">,</span>
+    <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"Jane"</span><span class="p">,</span>
+    <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+    <span class="s2">"login"</span><span class="p">:</span> <span class="s2">"janedoe75"</span><span class="p">,</span>
+    <span class="s2">"user_email"</span><span class="p">:</span> <span class="s2">"janedoe@janecargo.com"</span><span class="p">,</span>
+    <span class="s2">"country"</span><span class="p">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Jane Cargo"</span><span class="p">,</span>
+    <span class="s2">"ein"</span><span class="p">:</span> <span class="s2">"123123123"</span><span class="p">,</span>
+    <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"123 Main St"</span><span class="p">,</span>
+    <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Toronto"</span><span class="p">,</span>
+    <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"ON"</span><span class="p">,</span>
+    <span class="s2">"zip"</span><span class="p">:</span> <span class="s2">"33333"</span><span class="p">,</span>
+    <span class="s2">"time_zone"</span><span class="p">:</span> <span class="s2">"EST"</span><span class="p">,</span>
+    <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"4161234567"</span><span class="p">,</span>
+    <span class="s2">"d_account_number"</span><span class="p">:</span> <span class="s2">"0000000016"</span><span class="p">,</span>
+    <span class="s2">"d_routing_number"</span><span class="p">:</span> <span class="s2">"122105278"</span><span class="p">,</span>
+    <span class="s2">"region"</span><span class="p">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+    <span class="s2">"currency"</span><span class="p">:</span> <span class="s2">"USD"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="nx">settings</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account created"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">779413</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payerId"</span><span class="p">:</span><span class="w"> </span><span class="mi">282404</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>On failure the above command returns JSON like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User cannot be created, username already exists."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">410</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a new Shipper or Carrier and a new user</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://apidev.paycargo.com/signup</code></p>
+<h3 id='form-parameters-2'>Form Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>registerAs</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Shipper&quot; / &quot;Carrier&quot;</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your legal first name</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your legal last name</td>
+</tr>
+<tr>
+<td>login</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your username</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your email</td>
+</tr>
+<tr>
+<td>country</td>
+<td>Yes</td>
+<td>String</td>
+<td>Country code (&quot;CA&quot;)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Legal company name</td>
+</tr>
+<tr>
+<td>ein</td>
+<td>Yes</td>
+<td>String</td>
+<td>9 digit Federal Business Number (BN) or 10 digit Quebec Enterprise Number (NEQ)</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s address</td>
+</tr>
+<tr>
+<td>city</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s city</td>
+</tr>
+<tr>
+<td>state</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s province (&quot;QC&quot;, &quot;ON&quot;, &quot;MB&quot;, etc)</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s postal code</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>Yes</td>
+<td>String</td>
+<td>10 digit phone number</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Yes</td>
+<td>String</td>
+<td>Region code (&quot;CA&quot;)</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Yes</td>
+<td>String</td>
+<td>Currency (&quot;USD&quot;)</td>
+</tr>
+<tr>
+<td>d_account_number</td>
+<td>Yes</td>
+<td>String</td>
+<td>Bank account number</td>
+</tr>
+<tr>
+<td>d_routing_number</td>
+<td>Yes</td>
+<td>String</td>
+<td>Bank routing number (ABA)</td>
+</tr>
+<tr>
+<td>Account</td>
+<td>No</td>
+<td>String</td>
+<td>Billing Type (&quot;Prepaid&quot;)</td>
+</tr>
+</tbody></table>
+<h2 id='european-registration'>European Registration</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
+  --url <span class="s1">'https://apidev.paycargo.com/signup'</span> <span class="se">\</span>
+  --header <span class="s1">'Content-Type: application/x-www-form-urlencoded'</span> <span class="se">\</span>
+  --data <span class="s1">'registerAs=Shipper&amp;first_name=Jean&amp;last_name=Dupont&amp;login=jeandupont80&amp;user_email=jeandupont@jeancargo.fr&amp;country=FR&amp;name=Jean Cargo&amp;ein=FR12345678900&amp;address=Main St&amp;city=Paris&amp;zip=77777&amp;phone=0123456789&amp;region=EU&amp;currency=EUR&amp;debit_bank_account_name=Jean Dupont&amp;d_account_number=0000000016&amp;d_routing_number=122105278&amp;debit_name_of_debtor=Pierre Jacques&amp;debit_address=12 Champs&amp;debit_country=FR&amp;debit_postal_code=06666&amp;debit_city=Nice&amp;debit_bank_name=HSBC&amp;mandate_signature_date=2018-05-05&amp;mandate_location=New York'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">settings</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"async"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"crossDomain"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://apidev.paycargo.com/signup"</span><span class="p">,</span>
+  <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="s2">"headers"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"content-type"</span><span class="p">:</span> <span class="s2">"application/x-www-form-urlencoded"</span><span class="p">,</span>
+    <span class="s2">"cache-control"</span><span class="p">:</span> <span class="s2">"no-cache"</span><span class="p">,</span>
+    <span class="s2">"postman-token"</span><span class="p">:</span> <span class="s2">"02b9f9e2-35aa-fa9a-3ad4-5856747089b9"</span>
+  <span class="p">},</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"registerAs"</span><span class="p">:</span> <span class="s2">"Shipper"</span><span class="p">,</span>
+    <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"Jean"</span><span class="p">,</span>
+    <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Dupont"</span><span class="p">,</span>
+    <span class="s2">"login"</span><span class="p">:</span> <span class="s2">"jeandupont80"</span><span class="p">,</span>
+    <span class="s2">"user_email"</span><span class="p">:</span> <span class="s2">"jeandupont@jeancargo.fr"</span><span class="p">,</span>
+    <span class="s2">"country"</span><span class="p">:</span> <span class="s2">"FR"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Jean Cargo"</span><span class="p">,</span>
+    <span class="s2">"ein"</span><span class="p">:</span> <span class="s2">"FR12345678900"</span><span class="p">,</span>
+    <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"Main St"</span><span class="p">,</span>
+    <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+    <span class="s2">"zip"</span><span class="p">:</span> <span class="s2">"77777"</span><span class="p">,</span>
+    <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"0123456789"</span><span class="p">,</span>
+    <span class="s2">"region"</span><span class="p">:</span> <span class="s2">"EU"</span><span class="p">,</span>
+    <span class="s2">"currency"</span><span class="p">:</span> <span class="s2">"EUR"</span><span class="p">,</span>
+    <span class="s2">"debit_bank_account_name"</span><span class="p">:</span> <span class="s2">"Jean Dupont"</span><span class="p">,</span>
+    <span class="s2">"d_account_number"</span><span class="p">:</span> <span class="s2">"0000000016"</span><span class="p">,</span>
+    <span class="s2">"d_routing_number"</span><span class="p">:</span> <span class="s2">"122105278"</span><span class="p">,</span>
+    <span class="s2">"debit_name_of_debtor"</span><span class="p">:</span> <span class="s2">"Pierre Jacques"</span><span class="p">,</span>
+    <span class="s2">"debit_address"</span><span class="p">:</span> <span class="s2">"12 Champs"</span><span class="p">,</span>
+    <span class="s2">"debit_country"</span><span class="p">:</span> <span class="s2">"FR"</span><span class="p">,</span>
+    <span class="s2">"debit_postal_code"</span><span class="p">:</span> <span class="s2">"06666"</span><span class="p">,</span>
+    <span class="s2">"debit_city"</span><span class="p">:</span> <span class="s2">"Nice"</span><span class="p">,</span>
+    <span class="s2">"debit_bank_name"</span><span class="p">:</span> <span class="s2">"HSBC"</span><span class="p">,</span>
+    <span class="s2">"mandate_signature_date"</span><span class="p">:</span> <span class="s2">"2018-05-05"</span><span class="p">,</span>
+    <span class="s2">"mandate_location"</span><span class="p">:</span> <span class="s2">"New York"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="nx">settings</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account created (deactivated)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">779413</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payerId"</span><span class="p">:</span><span class="w"> </span><span class="mi">282404</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mandateRef"</span><span class="p">:</span><span class="w"> </span><span class="s2">"488CA390799311E8812E75EE76BBCFEA"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>On failure the above command returns JSON like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User cannot be created, username already exists."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">410</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a new Shipper or Carrier and a new user, as well as generating a b2b mandate pdf</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://apidev.paycargo.com/signup</code></p>
+<h3 id='form-parameters-3'>Form Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>registerAs</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Shipper&quot; / &quot;Carrier&quot;</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your legal first name</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your legal last name</td>
+</tr>
+<tr>
+<td>login</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your username</td>
+</tr>
+<tr>
+<td>user_email</td>
+<td>Yes</td>
+<td>String</td>
+<td>Your email</td>
+</tr>
+<tr>
+<td>country</td>
+<td>Yes</td>
+<td>String</td>
+<td>Country code (&quot;BE&quot;, &quot;DK&quot;, &quot;FR&quot;, etc)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Legal company name</td>
+</tr>
+<tr>
+<td>ein</td>
+<td>Yes</td>
+<td>String</td>
+<td>Vat number</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s address</td>
+</tr>
+<tr>
+<td>city</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s city</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>Yes</td>
+<td>String</td>
+<td>Company&#39;s postal code</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>Yes</td>
+<td>String</td>
+<td>Phone number</td>
+</tr>
+<tr>
+<td>region</td>
+<td>Yes</td>
+<td>String</td>
+<td>Region code (&quot;EU&quot;)</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Yes</td>
+<td>String</td>
+<td>Currency (&quot;EUR&quot;)</td>
+</tr>
+<tr>
+<td>debit_bank_account_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Bank account holder</td>
+</tr>
+<tr>
+<td>d_account_number</td>
+<td>Yes</td>
+<td>String</td>
+<td>IBAN</td>
+</tr>
+<tr>
+<td>d_routing_number</td>
+<td>Yes</td>
+<td>String</td>
+<td>Bank Identifier Code (BIC)</td>
+</tr>
+<tr>
+<td>debit_name_of_debtor</td>
+<td>Yes</td>
+<td>String</td>
+<td>Name of Debtor</td>
+</tr>
+<tr>
+<td>debit_address</td>
+<td>Yes</td>
+<td>String</td>
+<td>Street name and number</td>
+</tr>
+<tr>
+<td>debit_country</td>
+<td>Yes</td>
+<td>String</td>
+<td>Debit country code (&quot;BE&quot;, &quot;DK&quot;, &quot;FR&quot;, etc)</td>
+</tr>
+<tr>
+<td>debit_postal_code</td>
+<td>Yes</td>
+<td>String</td>
+<td>Debit postal code</td>
+</tr>
+<tr>
+<td>debit_city</td>
+<td>Yes</td>
+<td>String</td>
+<td>Debit city</td>
+</tr>
+<tr>
+<td>debit_bank_name</td>
+<td>Yes</td>
+<td>String</td>
+<td>Debit bank</td>
+</tr>
+<tr>
+<td>mandate_signature_date</td>
+<td>Yes</td>
+<td>String</td>
+<td>Date when mandate was signed (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>mandate_location</td>
+<td>Yes</td>
+<td>String</td>
+<td>Location of mandate</td>
+</tr>
+</tbody></table>
 <h1 id='transaction'>Transaction</h1><h2 id='get-transaction-details'>Get Transaction Details</h2><pre class="highlight shell tab-shell"><code>curl --request GET <span class="se">\</span>
   --url <span class="s1">'https://apidev.paycargo.com/transaction/{{transactionId}}'</span> <span class="se">\</span>
   --header <span class="s1">'Authorization: JWT {{token}}'</span>
@@ -421,7 +1044,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint gives you the Details for the transaction.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET https://apidev.paycargo.com/transaction/{{transactionId}}</code></p>
 <h3 id='request-parameter'>Request Parameter</h3>
 <table><thead>
@@ -617,9 +1240,9 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint creates a transaction, and optionally makes a payment (if makePayment: true)</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST https://apidev.paycargo.com/transaction</code></p>
-<h3 id='form-parameters'>Form Parameters</h3>
+<h3 id='form-parameters-4'>Form Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -762,7 +1385,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint voids a transaction.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>PUT https://apidev.paycargo.com/transaction/void/{{transactionId}}</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -810,7 +1433,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>You can make a payment on a transaction in status &quot;Created&quot;. Making a payment will make transaction &quot;Approved&quot; status</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>PUT https://apidev.paycargo.com/transaction/pay/{{transactionId}}</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
@@ -824,7 +1447,7 @@
 <td>transactionId of previously created transaction</td>
 </tr>
 </tbody></table>
-<h3 id='form-parameters-2'>Form Parameters</h3>
+<h3 id='form-parameters-5'>Form Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -876,7 +1499,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint updates the total and payment due date for the paid transaction.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>PUT https://apidev.paycargo.com/transaction/{{transactionId}}</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
@@ -890,7 +1513,7 @@
 <td>transactionId of previously created transaction</td>
 </tr>
 </tbody></table>
-<h3 id='form-parameters-3'>Form Parameters</h3>
+<h3 id='form-parameters-6'>Form Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -946,7 +1569,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all vendors in Paycargo system and their corresponding IDs</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>GET https://apidev.paycargo.com/vendors</code></p>
 <h1 id='payers'>Payers</h1><pre class="highlight shell tab-shell"><code>curl --request GET <span class="se">\</span>
   --url <span class="s1">'https://apidev.paycargo.com/payers'</span> <span class="se">\</span>
@@ -990,7 +1613,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint only works when logged in as a Developer and retrieves the payers associated with that developer account</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>GET https://apidev.paycargo.com/payers</code> (developer auth only)</p>
 <h1 id='errors'>Errors</h1>
 <p>The Paycargo API uses the following error codes:</p>
@@ -1028,6 +1651,52 @@
 <tr>
 <td>503</td>
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+<p>Transaction Creation Response codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>411</td>
+<td>Transaction type does not exist: transaction cannot be created</td>
+</tr>
+<tr>
+<td>414</td>
+<td>Payer/Vendor/User does not exist: transaction cannot be created</td>
+</tr>
+<tr>
+<td>415</td>
+<td>Transaction number already exists: transaction cannot be created</td>
+</tr>
+<tr>
+<td>416</td>
+<td>Has arrived field invalid: transaction cannot be created</td>
+</tr>
+<tr>
+<td>430</td>
+<td>Payer is not active: transaction cannot be created</td>
+</tr>
+<tr>
+<td>431</td>
+<td>Vendor is not active: transaction cannot be created</td>
+</tr>
+<tr>
+<td>441</td>
+<td>Missing Vendor Credit Account: transaction cannot be created</td>
+</tr>
+<tr>
+<td>201</td>
+<td>Transaction Created</td>
+</tr>
+<tr>
+<td>200</td>
+<td>Transaction Created and Paid (when makePayment: true)</td>
 </tr>
 </tbody></table>
 
