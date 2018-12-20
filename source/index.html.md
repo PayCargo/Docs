@@ -179,7 +179,7 @@ var settings = {
 }
 ```
 
-This endpoint gives you the Details for the transaction.
+This endpoint gives you the details for the transaction.
 
 ### HTTP Request
 
@@ -496,6 +496,135 @@ Parameter | Required | Type | Description
 --------- | -------- | ---- | -----------
 paymentDueDate | Yes | Date | The date when payment is completed (can only be before the current paymentDueDate)
 total | Yes | Numeric | Total payment(s) amount (can only be less than the current total)
+
+
+
+# Transaction Lines
+
+## Get Transaction Lines
+
+```shell
+curl --request GET \
+  --url 'https://apidev.paycargo.com/transactionLines/{{transactionId}}' \
+  --header 'Authorization: JWT {{token}}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/transactionLines/497526",
+  "method": "GET",
+  "headers": {
+    "Authorization": "JWT {{token}}"
+  }
+}
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "result": {
+        "msg": "succesful",
+        "code": 200
+    },
+    "data": [
+        {
+            "PC_TRANSACTION_LINE_ID": 2233,
+            "PC_TRANSACTION_ID": 500311,
+            "DESCRIPTION": "Initial value set for client",
+            "START_DATE": null,
+            "END_DATE": null,
+            "QUANTITY": 2,
+            "UNIT_PRICE": 2,
+            "AMOUNT": 40,
+            "VAT_PERCENT": 0,
+            "VAT_AMOUNT": 0,
+            "PIECES": 0,
+            "WEIGHT": 0,
+            "CREATED_BY": 778993,
+            "DATE_CREATED": "2018-11-26T09:19:23.380Z",
+            "MODIFIED_BY": null,
+            "DATE_MODIFIED": "2018-11-26T09:20:26.260Z"
+        },
+        {
+            "PC_TRANSACTION_LINE_ID": 2235,
+            "PC_TRANSACTION_ID": 500311,
+            "DESCRIPTION": "Correction",
+            "START_DATE": null,
+            "END_DATE": null,
+            "QUANTITY": 2,
+            "UNIT_PRICE": -2,
+            "AMOUNT": -4,
+            "VAT_PERCENT": 0,
+            "VAT_AMOUNT": 0,
+            "PIECES": 0,
+            "WEIGHT": 0,
+            "CREATED_BY": 778993,
+            "DATE_CREATED": "2018-11-26T09:19:23.437Z",
+            "MODIFIED_BY": null,
+            "DATE_MODIFIED": null
+        },
+        {
+            "PC_TRANSACTION_LINE_ID": 2236,
+            "PC_TRANSACTION_ID": 500311,
+            "DESCRIPTION": "Second correction",
+            "START_DATE": null,
+            "END_DATE": null,
+            "QUANTITY": 2,
+            "UNIT_PRICE": -2,
+            "AMOUNT": -4,
+            "VAT_PERCENT": 0,
+            "VAT_AMOUNT": 0,
+            "PIECES": 0,
+            "WEIGHT": 0,
+            "CREATED_BY": 778993,
+            "DATE_CREATED": "2018-11-26T09:19:23.437Z",
+            "MODIFIED_BY": null,
+            "DATE_MODIFIED": null
+        },
+        {
+            "PC_TRANSACTION_LINE_ID": 2237,
+            "PC_TRANSACTION_ID": 500311,
+            "DESCRIPTION": "New price applied including corrections",
+            "START_DATE": null,
+            "END_DATE": null,
+            "QUANTITY": 2,
+            "UNIT_PRICE": 30,
+            "AMOUNT": 60,
+            "VAT_PERCENT": 0,
+            "VAT_AMOUNT": 0,
+            "PIECES": 0,
+            "WEIGHT": 0,
+            "CREATED_BY": 778993,
+            "DATE_CREATED": "2018-11-26T09:23:54.157Z",
+            "MODIFIED_BY": null,
+            "DATE_MODIFIED": null
+        },
+        {
+            "PC_TRANSACTION_LINE_ID": 2238,
+            "PC_TRANSACTION_ID": 500311,
+            "DESCRIPTION": "Original price removed",
+            "START_DATE": null,
+            "END_DATE": null,
+            "QUANTITY": 2,
+            "UNIT_PRICE": -20,
+            "AMOUNT": -40,
+            "VAT_PERCENT": 0,
+            "VAT_AMOUNT": 0,
+            "PIECES": 0,
+            "WEIGHT": 0,
+            "CREATED_BY": 778993,
+            "DATE_CREATED": "2018-11-26T09:23:54.157Z",
+            "MODIFIED_BY": null,
+            "DATE_MODIFIED": null
+        }
+    ]
+}
+```
+
+This endpoint gives you the details for the transaction lines for a given transaction.
 
 
 
