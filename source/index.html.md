@@ -637,6 +637,7 @@ Parameter | Required | Description
 transactionId | true | Unique identifier of the transaction in Paycargo system that the lines correspond to.
 
 ### Response Fields
+
 Response Field | Type | Description
 -------------- | ---- | -----------
 PC_TRANSACTION_LINE_ID | Int | Unique transaction line
@@ -655,6 +656,62 @@ CREATED_BY | Int | userId of line item creator
 DATE_CREATED | Date | Date created
 MODIFIED_BY | Int | userId of most recent line item modifier
 DATE_MODIFIED | Date | Date most recently modified
+
+
+## Create a Transaction
+
+```shell
+curl --request POST \
+  --url 'https://apidev.paycargo.com/transactionLines' \
+  --header 'Authorization: JWT {{token}}' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'AMOUNT=4&CREATED_BY=778993&DESCRIPTION=First%20item%20set&PC_TRANSACTION_ID={{transactionId}}&PIECES=0&QUANTITY=2&UNIT_PRICE=2&VAT_AMOUNT=0&VAT_PERCENT=0&WEIGHT=0'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/transaction",
+  "method": "POST",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Authorization": "JWT {{token}}"
+  },
+  "data": {
+    "AMOUNT": "4",
+    "CREATED_BY": "778993",
+    "DESCRIPTION": "First item set",
+    "PC_TRANSACTION_ID": "501264",
+    "PIECES": "0",
+    "QUANTITY": "2",
+    "UNIT_PRICE": "2",
+    "VAT_AMOUNT": "0",
+    "VAT_PERCENT": "0",
+    "WEIGHT": "0"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "result": {
+        "msg": "Successfully updated transaction lines!",
+        "code": 200
+    },
+    "data": {
+        "transactionLineId": 3124
+    }
+}
+```
+
+This endpoint creates a transaction line item for a given transaction (with a corresponding transactionId).
 
 
 # Vendors
