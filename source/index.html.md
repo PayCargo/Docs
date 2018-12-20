@@ -658,7 +658,7 @@ MODIFIED_BY | Int | userId of most recent line item modifier
 DATE_MODIFIED | Date | Date most recently modified
 
 
-## Create a Transaction
+## Create a Transaction Line
 
 ```shell
 curl --request POST \
@@ -712,6 +712,57 @@ $.ajax(settings).done(function (response) {
 ```
 
 This endpoint creates a transaction line item for a given transaction (with a corresponding transactionId).
+
+
+## Delete a Transaction Line
+
+```shell
+curl --request DELETE \
+  --url 'https://apidev.paycargo.com/transactionLines/?tid=501264&lid=3124' \
+  --header 'Authorization: JWT {{token}}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/transactionLines/?tid=501264&lid=3124",
+  "method": "DELETE",
+  "headers": {
+    "Authorization": "JWT {{token}}"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON like this upon success:
+
+```json
+{
+  "result": {
+    "msg": "Successfully deleted transaction line item 3124",
+    "code": 200
+  }
+}
+```
+
+This endpoint deletes a transaction line item.
+
+### HTTP Request
+
+`DELETE https://apidev.paycargo.com/transactionLines/?tid={{transactionId}}&lid={{transactionLineId}}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+transactionId | transactionId of the corresponding created transaction
+transactionLineId | transactionLineId of previously created transaction line item
+
+
 
 
 # Vendors
