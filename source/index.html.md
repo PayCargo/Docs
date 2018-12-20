@@ -626,6 +626,35 @@ var settings = {
 
 This endpoint gives you the details for the transaction lines for a given transaction.
 
+### HTTP Request
+
+`GET https://apidev.paycargo.com/transactionLines/{{transactionId}}`
+
+### Request Parameter
+
+Parameter | Required | Description
+--------- | ------- | -----------
+transactionId | true | Unique identifier of the transaction in Paycargo system that the lines correspond to.
+
+### Response Fields
+Response Field | Type | Description
+-------------- | ---- | -----------
+PC_TRANSACTION_LINE_ID | Int | Unique transaction line
+PC_TRANSACTION_ID | Int | The corresponding {{transactionId}} supplied
+DESCRIPTION | String | Description of the transaction line
+START_DATE | Date | Start date of line item
+END_DATE | Date | End date of line item
+QUANTITY | Float | Number of units
+UNIT_PRICE | Float | Price per units
+AMOUNT | Float | Individual amount of line item
+VAT_PERCENT | Float | Value-added tax percent
+VAT_AMOUNT | Float | Value-added tax amount
+PIECES | Float | Pieces
+WEIGHT | Float | Weight
+CREATED_BY | Int | userId of line item creator
+DATE_CREATED | Date | Date created
+MODIFIED_BY | Int | userId of most recent line item modifier
+DATE_MODIFIED | Date | Date most recently modified
 
 
 # Vendors
