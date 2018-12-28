@@ -813,6 +813,55 @@ This endpoint retrieves all vendors in Paycargo system and their corresponding I
 `GET https://apidev.paycargo.com/vendors`
 
 
+# Payer
+
+## Add Payer to Developer Group
+
+```shell
+curl --request PUT \
+  --url 'https://apidev.paycargo.com/payer/282634' \
+  --header 'Authorization: JWT {{token}}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://apidev.paycargo.com/payer/282634",
+  "method": "PUT"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "result": {
+    "msg": "Payer added",
+    "code": 200
+  },
+  "data": {
+    "payerId": "282634"
+  }
+}
+```
+
+This endpoint gives you the list of payers associated with your developer account.
+
+### HTTP Request
+
+`PUT https://apidev.paycargo.com/payer/{{payerId}}`
+
+### Request Parameter
+
+Parameter | Required | Description
+--------- | ------- | -----------
+payerId | true | Unique identifier of the payer account in Paycargo system.
+
 # Payers
 
 ```shell
